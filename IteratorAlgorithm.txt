@@ -1,0 +1,13 @@
+CREATE NEW stack
+SET current node TO root node
+WHILE current node NOT null:
+    ADD current node TO stack
+    SET current node TO current left node
+WHILE stack NOT empty:
+    SET return node TO stack.pop()
+    SET subtree node TO return right node
+    WHILE subtree node NOT null:
+        ADD subtree node TO stack
+        SET subtree node to subtree right node
+    RETURN return node
+TERMINATE

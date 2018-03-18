@@ -257,11 +257,7 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 		BSTBag.BSTNode<E> parent, curr;
 		parent = null;
 		curr = root;
-		// if the root node is null, terminate
-		if (curr == null) { return; };
-		
-		// Search the array for the value to be removed
-		while (true) {
+		while (curr != null) {
 			if (curr == null) {
 				// if the bottom of the BST has been reached, terminate
 				return;
@@ -294,6 +290,8 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 				curr = ((element.compareTo(curr.element.getElement()) > 0) ? parent.right : parent.left);
 			}
 		}
+		// if the root node is null, terminate
+        return;
 	}
 
 	/**

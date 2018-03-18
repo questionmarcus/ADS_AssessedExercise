@@ -1,0 +1,20 @@
+SET current node TO root node
+IF current node EQUALS null:
+    SET root node TO added element
+    TERMINATE
+WHILE current node NOT EQUALS null:
+    SET parent node TO current node
+    IF added element EQUALS current node:
+        ADD 1 to CountedElement count
+        TERMINATE
+    ELSE IF added element GREATER THAN current element:
+        SET current element to current right node
+        IF current element EQUALS null:
+            SET parent right node TO added element
+            TERMINATE
+    ELSE:
+        SET current element TO current left node:
+        IF current element EQUALS null:
+            SET parent left node TO added element
+            TERMINATE
+TERMINATE
