@@ -1,0 +1,51 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{listings}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\usepackage{fontspec}
+
+\setmainfont{Minion Pro}
+\setmonofont{Source Code Pro}
+
+\definecolor{Polar Night 1}{HTML}{2e3440}
+\definecolor{Polar Night 3}{HTML}{434C5E}
+\definecolor{Polar Night 4}{HTML}{4C566A}
+
+\definecolor{Snow Storm 3}{HTML}{ECEFF4}
+
+\definecolor{Frost 1}{HTML}{8FBCBB}
+\definecolor{Frost 4}{HTML}{5E81AC}
+
+\definecolor{Aurora 1}{HTML}{BF616A}
+
+\lstset{%
+  backgroundcolor=\color{Snow Storm 3},
+  basicstyle=\color{Polar Night 1}\ttfamily\footnotesize,
+  commentstyle=\color{Polar Night 4},
+  stringstyle=\color{Polar Night 3},
+  keywords={,SET, RETURN, TERMINATE, WHILE, TO, GREATER, THAN, LESS, EQUALS, NOT, IF, ELSE,
+            CREATE, NEW, ADD, INCREMENT, DECREMENT},
+  keywordstyle=[1]\color{Frost 4}\textbf,
+  keywordstyle=[2]\color{Frost 1}\textbf,
+  keywordstyle=[3]\color{Aurora 1},
+  keywordstyle=[4]\color{Aurora 1},
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  tabsize=2,
+  frame=none
+}
+
+\title{Algorithms \& Data Structures\\Assessed Exercise}
+\author{Marcus Lancaster --- Student \textnumero: 2339874L}
+\date{}
+\begin{document}
+\maketitle
+\section*{Add Element Algorithm}
+\lstinputlisting{AddAlgorithm.txt}
+\section*{Remove Element Algorithm}
+\lstinputlisting{RemoveAlgorithm.txt}
+\section*{Iterator Algorithm}
+\lstinputlisting{IteratorAlgorithm.txt}
+\end{document}

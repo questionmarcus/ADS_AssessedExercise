@@ -8,6 +8,6 @@ WHILE stack NOT empty:
     SET subtree node TO return right node
     WHILE subtree node NOT null:
         ADD subtree node TO stack
-        SET subtree node to subtree right node
+        SET subtree node TO subtree right node
     RETURN return node
 TERMINATE

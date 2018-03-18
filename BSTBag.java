@@ -214,7 +214,6 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 		BSTBag.BSTNode<E> curr = root;
 		// if the root node is null, this element is now the root node.
 		if (curr == null) {
-			System.out.println("First node is: "+element.toString());
 			root = new BSTBag.BSTNode<E>(element);
 			return;
 		}
@@ -224,12 +223,10 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 			BSTBag.BSTNode<E> parent = curr;
 			if(element.compareTo(curr.element.getElement()) == 0) {
 				// If the element already exists increment the count value and terminate
-				System.out.println(element.toString()+" is already in the tree - incrementing");
 				curr.element.setCount(curr.element.getCount()+1);
 				return;
 			} else if (element.compareTo(curr.element.getElement()) > 0) {
 				// if the new node is bigger than the current node, move right down the tree
-				System.out.println(element.toString()+" is right of "+curr.element.toString());
 				 curr = curr.right;
 				 if (curr == null) {
 					 // if there is no value to the right, create a new node here.
@@ -238,7 +235,6 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 				 }
 			} else {
 				// If the element is smaller than the current node, move left down the tree.
-				System.out.println(element.toString()+" is left of "+curr.element.toString());
 				curr = curr.left;
 				if (curr == null) {
 					// if there is no node here, create a new node
@@ -265,7 +261,6 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 				// We have found the element to be removed.
 				if (curr.element.getCount() > 1) {
 					// if the element a count of more than 1, do not remove the node, but decrement it's value
-					System.out.println("There are "+curr.element.getCount()+" instances of "+curr.element.getElement()+" - decrementing");
 					curr.element.setCount(curr.element.getCount()-1);
 					return;
 				} else {

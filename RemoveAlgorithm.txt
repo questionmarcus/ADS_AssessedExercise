@@ -12,7 +12,7 @@ FUNCTION findReplacement(node):
         RETURN return node
 
 SET parent node TO null
-SET current node to root node
+SET current node TO root node
 WHILE current node NOT null:
     IF current node EQUALS remove node:
         IF current node's count GREATER THAN 1:
@@ -32,5 +32,5 @@ WHILE current node NOT null:
         IF current node GREATER THAN remove node:
             SET current node TO parent right node
         ELSE:
-            SET current node to parent left node
+            SET current node TO parent left node
 TERMINATE
