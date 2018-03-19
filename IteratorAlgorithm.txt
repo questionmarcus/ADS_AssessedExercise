@@ -1,13 +1,20 @@
 CREATE NEW stack
 SET current node TO root node
 WHILE current node NOT null:
-    ADD current node TO stack
+    IF current node count GREATER THAN 0:
+        ADD current node TO stack
     SET current node TO current left node
 WHILE stack NOT empty:
-    SET return node TO stack.pop()
-    SET subtree node TO return right node
-    WHILE subtree node NOT null:
-        ADD subtree node TO stack
-        SET subtree node TO subtree right node
-    RETURN return node
+    SET return node TO stack PEAK
+    IF return node count GREATER THAN 1:
+        DECREMENT stack top element
+        RETURN return node
+    ELSE:
+        SET return node TO stack POP
+        SET subtree node TO return right node
+        WHILE subtree node NOT null:
+            IF subtree node count GREATER THAN 0:
+                ADD subtree node TO stack
+            SET subtree node TO subtree right node
+        RETURN return node
 TERMINATE

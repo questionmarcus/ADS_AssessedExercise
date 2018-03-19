@@ -28,52 +28,6 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 			this.left = null;
 			this.right = null;
 		}
-		
-		/**
-		 * method to remove an node from the BST. If the node has only
-		 * one child, this is returned to the remove method to replace,
-		 * the node being deleted. If there are 2 child nodes it will return
-		 * the left most child of the right hand subtree
-		 * @return the node to replace the topMost node
-		 */
-		public BSTNode<E> deleteTopMost() {
-			if (this.left == null) {
-				return this.right;
-			} else if (this.right == null) {
-				return this.left;
-			} else {
-				this.element = this.right.getLeftMost();
-				this.right = this.right.deleteLeftMost();
-				return this;
-			}
-		}
-		
-		/**
-		 * Method to find the left most node of a subtree.
-		 * Keeps going to the left child until the left child
-		 * is null
-		 * @return the left most node in the subtree
-		 */
-		private CountedElement<E> getLeftMost() {
-			BSTNode<E> curr = this;
-			while (curr.left!=null) {
-				curr = curr.left;
-			}
-			return curr.element;
-		}
-		
-		/**
-		 * Method to remove the left most node of a subtree and replace
-		 * the root of the subtree with the child of the new leftmost element.
-		 * @return the leftmost 
-		 */
-		private BSTNode<E> deleteLeftMost() {
-			if (this.left == null) {
-				return this.right;
-			} else {
-				return this;
-			}
-		}
 	}
 		
 	/**
@@ -92,7 +46,10 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 		private IteratorObject() {
 			track = new LinkedStack<BSTBag.BSTNode<E>>();
 			for (BSTBag.BSTNode<E> curr = root ; curr != null ; curr = curr.left) {
-				track.push(curr);
+				if (curr.element.getCount() > 0) {
+					// Only add elements to track if there is a count greater than 0
+					track.push(curr);
+				}
 			}
 		}
 		
@@ -114,15 +71,28 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 			if (track.empty()) {
 				throw new NoSuchElementException();
 			} else {
-				// remove leftmost node
-				BSTBag.BSTNode<E> place = track.pop();
-				for (BSTBag.BSTNode<E> curr = place.right ; curr != null ; curr = curr.left) {
-					// add all leftmost nodes from right sub-tree
-					track.push(curr);
-				}
 				
-				// Return the element from the BST, not the element and it's count value
-				return place.element.getElement();
+				// peek at leftmost node
+				BSTBag.BSTNode<E> place = track.peek();
+				int count = place.element.getCount();
+				if (count > 1) {
+					// If there is more than 1 of the element, return an instance leaving another
+					// copy at the top of the stack
+					track.peek().element.setCount(count - 1);
+					return place.element.getElement();
+				} else {
+					// If there is only 1 instance, return the element at the top of the stack
+					// replace place with the popped element
+					place = track.pop();
+					for (BSTBag.BSTNode<E> curr = place.right ; curr != null ; curr = curr.left) {
+						// add all leftmost nodes from right sub-tree
+						if (curr.element.getCount() > 0) {
+							// Only add element from right subtree if count is greater than 0
+							track.push(curr);
+						}
+					}
+					return place.element.getElement();
+				}
 			}
 		}
 		
@@ -254,29 +224,14 @@ public class BSTBag<E extends Comparable<E>> implements Bag<E> {
 		parent = null;
 		curr = root;
 		while (curr != null) {
-			if (curr == null) {
-				// if the bottom of the BST has been reached, terminate
-				return;
-			} else if (element.compareTo(curr.element.getElement()) == 0) {
+			if (element.compareTo(curr.element.getElement()) == 0) {
 				// We have found the element to be removed.
-				if (curr.element.getCount() > 1) {
+				if (curr.element.getCount() >= 1) {
 					// if the element a count of more than 1, do not remove the node, but decrement it's value
 					curr.element.setCount(curr.element.getCount()-1);
 					return;
 				} else {
-					// if there is only a count of 1. find the replacement node of the deleted node
-					// this is implemented in the Node inner class
-					BSTBag.BSTNode<E> replacement = curr.deleteTopMost();
-					if (curr == root) {
-						// if the current node is the root node, replace the root with its replacement
-						root = replacement;
-					} else if (curr == parent.left) {
-						// if the deleted node is a left child node, update the parent node
-						parent.left = replacement;
-					} else if (curr == parent.right) {
-						// if the deleted node is a right child node, update the parent node
-						parent.right = replacement;
-					}
+					// If element has a count of 0, terminate and do nothing
 					return;
 				}
 			} else {

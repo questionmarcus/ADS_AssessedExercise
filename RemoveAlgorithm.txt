@@ -1,31 +1,11 @@
-FUNCTION findReplacement(node):
-    IF left node EQUALS null:
-        RETURN right node
-    ELSE IF right node EQUALS null:
-        RETURN left node
-    ELSE:
-        SET search node TO right node
-        WHILE search node left child NOT EQUALS null:
-            SET search node TO search node left child
-        SET return node TO search node
-        SET search node TO findReplacement(search node)
-        RETURN return node
-
 SET parent node TO null
 SET current node TO root node
 WHILE current node NOT null:
     IF current node EQUALS remove node:
-        IF current node's count GREATER THAN 1:
+        IF current node's count GREATER THAN OR EQUAL TO 1:
             DECREMENT current node's count
             TERMINATE
         ELSE:
-            SET replacement TO findReplacement(current node);
-            IF current node EQUALS root node:
-                SET root node TO replacement
-            ELSE IF current node EQUALS parent left node:
-                SET parent left node TO  replacement
-            ELSE:
-                SET parent right node TO replacement
             TERMINATE
     ELSE:
         SET parent node TO current node

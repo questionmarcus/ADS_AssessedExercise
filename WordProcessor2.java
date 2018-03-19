@@ -21,6 +21,12 @@ public class WordProcessor2 {
 			
             // close input scanner
 			in.close();
+			
+			bag.remove("CALL");
+			Iterator<String> e = bag.iterator();
+			while (e.hasNext()) {
+				System.out.println(e.next());
+			}
 		}
 	}
 }
